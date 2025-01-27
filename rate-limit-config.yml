@@ -1,0 +1,25 @@
+rateLimit:
+  enabled: true
+  learning: false
+  redis:
+    enabled: true
+  # The rate (in seconds) that the bucket will be replenished
+  rateSeconds: 10
+  # The number of allowed requests in the window of rateSeconds
+  capacity: 500
+  # Specific principals can be given different capacities
+  capacityByPrincipal:
+  - principal: anonymous
+    override: 1000
+  # Similarly, rateSeconds can be overridden per-principal
+  rateSecondsByPrincipal:
+  - principal: anonymous
+    override: 5
+  # A list of principals that are being enforced. Handy for cases where you want
+  # to incrementally enable the rate limiter
+  enforcing:
+  - example@example.com
+  # A list of principals that are in learning mode. This can be useful if you
+  # want to give some principals unlimited power. Reconsider doing this :)
+  ignoring:
+  - unmetered-example@example.com
